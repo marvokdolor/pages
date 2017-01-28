@@ -1,10 +1,128 @@
 <html>
+  <!--script = href'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"-->
+  <!--style = href"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"-->
   <title>
     Pomodoro Clock
   </title>
   <style>
+    
+    body {
+    background-color: grey;
+    font-family: "Montserrat"; 
+  }
+
+    h2 {
+      display: inline;
+    }
+
+    #start {
+      margin: 10px;
+  }
   </style>
   <script>
+    $(document).ready(function() {
+      //  Save  for buzzer  sound
+      // var buzzer = $("#buzzer")[0];
+      var count = parseInt($("#num").html());
+      var breakTime = parseInt($("#breakNum").html());
+      $("#reset").hide(); // hide reset button
+
+      // Start button
+      $("#start").click(function() {
+        // hide bits and pieces  while pomodoro is  counting down
+        $("#start, #minus5Clock, #add5Clock, #minus5Break, #add5Break, #breakNum, #title1").hide();
+        $("#timeType").html("Session Time: "); // show  during countdown
+
+        // Logic for  Pomodoro timer
+        var counter = setInterval(timer, 1000); //1 sec = 1000 millisec
+        var startBreak;
+        //count *= 60;
+        breakTime *= 60;
+        function timer() {
+          count -= 1;
+          if (count === 0) {
+            //buzzer.play();
+            alert("Time's up");
+            clearInterval(counter);
+
+            startBreak = setInterval(breakTimer, 1000);
+            $("#num").hide();
+          }
+
+          // format clock countdown
+          if (count % 60 >= 10) {
+            $("#num").html(Math.floor(count / 60) + ":" + count % 60);
+
+          } else {
+            $("#num").html(Math.floor(count / 60) + ":0" + count % 60);
+          }
+
+          //$("#num").html(count);
+        }
+          // Logic for  Break Timer
+
+          function breakTimer() {
+            $("#timeType").html("Break Time: ");
+            $("#breakNum").show();
+
+            //$("#timeType").show()
+            breakTime -= 1;
+            if (breakTime === 0) {
+              clearInterval(startBreak);
+              alert("Break Over!");
+              // buzzer.play();
+              $("#reset").show();
+              $("#breakNum, #timeType").hide();
+            }
+
+            // format break countdown
+            if (breakTime % 60 >= 10) {
+              $("#breakNum").html(Math.floor(breakTime / 60) + ":" + breakTime % 60);
+
+            } else {
+              $("#breakNum").html(Math.floor(breakTime / 60) + ":0" + breakTime % 60);
+            }
+              //$("#breakNum").html(breakTime);
+            }
+
+      });
+      // Reset Logic
+      $("#reset").click(function() {
+        count = 25;
+        breakTime = 5;
+        $("#num").html(count);
+        $("#breakNum").html(breakTime);
+        $("#start, #minus5Clock, #add5Clock, #minus5Break, #add5Break, #breakNum, #num, #title1, #title2").show();
+        $("#reset, #timeType").hide();
+      });
+
+      // Change  Pomodoro  clock time with buttons
+      $("#minus5Clock").click(function() {
+        if (count > 5) {
+          count -= 5;
+          $("#num").html(count);
+        }
+      });
+
+      $("#add5Clock").click(function() {
+        count += 5;
+        $("#num").html(count);
+      });
+
+      // Change  break time with buttons
+      $("#minus5Break").click(function() {
+        if (breakTime > 5) {
+          breakTime -= 5;
+          $("#breakNum").html(breakTime);
+        }
+      });
+
+      $("#add5Break").click(function() {
+        breakTime += 5;
+        $("#breakNum").html(breakTime);
+      });
+
+    });
   </script>
   <body>
     <div class = "text-center">
