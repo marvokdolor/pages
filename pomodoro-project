@@ -1,0 +1,30 @@
+<html>
+  <title>
+    Pomodoro Clock
+  </title>
+  <style>
+  </style>
+  <script>
+  </script>
+  <body>
+    <div class = "text-center">
+      <h1>Pomodoro Clock</h1> 
+      <div id="timeDiv">
+        <h1 id="title1">Session Time</h1>
+        <a href="#" class = "btn btn-danger" id="minus5Clock">-</a>
+        <h2 id="timeType"></h2>
+        <h2 id="num">25</h2>
+        <a href="#" class = "btn btn-danger" id="add5Clock">+</a>
+        <a href="#" class = "btn btn-danger" id="reset">Reset</a>
+      </div>
+      <div id="breakDiv">
+        <h1 id="title1">Break Time</h1>
+        <a href="#" class = "btn btn-danger" id="minus5Break">-</a>
+        <!-- Change id and  5 to 25 -->
+        <h2 id="breakNum">5</h2>
+        <a href="#" class = "btn btn-danger" id="add5Break">+</a>
+      </div>
+      <a href="#" class = "btn btn-danger" id="start">Start</a>
+    </div>
+  </body>
+</html>
